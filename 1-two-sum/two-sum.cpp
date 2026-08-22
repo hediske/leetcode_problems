@@ -1,38 +1,32 @@
 class Solution {
 public:
-    unordered_map < int , vector<int> > positions ; 
-
     vector<int> twoSum(vector<int>& nums, int target) {
-        for (int i = 0; i<nums.size(); i++){
-            if(positions.find(nums[i]) == positions.end()){
-                vector<int> v ; 
-                v.push_back(i);
-                positions[nums[i]] = v;
+
+        unordered_map<int,vector<int>> pos;
+
+        for (int i = 0;i<nums.size();++i){
+            if (pos.find(nums[i]) == pos.end()){
+                vector<int> st;
+                st.push_back(i);
+                pos[nums[i]] = st;
             }else{
-                positions[nums[i]].push_back(i);
+                pos[nums[i]].push_back(i);
             }
         }
 
-
-
-
         vector<int> res;
-
-        for (auto& elem : positions){
-            int value = target - elem.first;
-            if(positions.find(value) != positions.end()){
-                
-                if(value != elem.first){
-                    res.push_back(positions[elem.first][0]);
-                    res.push_back(positions[value][0]);
-                    break;
-                }
-                else{
-                    if(positions[value].size()>=2){
-                        res.push_back(positions[value][0]);
-                        res.push_back(positions[value][1]);
-                        break;                    
+        for (const auto& p : pos){
+            if (pos.find(target - p.first) != pos.end()){
+                if((target - p.first) == p.first){
+                    if(p.second.size()>1){
+                        res.push_back(p.second[0]);
+                        res.push_back(p.second[1]);
+                        break;
                     }
+                }else{
+                    res.push_back(p.second[0]);
+                    res.push_back(pos[target-p.first][0]);
+                    break;
                 }
             }
         }
