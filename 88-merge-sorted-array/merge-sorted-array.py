@@ -3,31 +3,27 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        i = m + n -1
-        while i >= n:
-            nums1[i] = nums1[i-n]
-            i-=1
-        print(nums1)
 
-        i = 0
-        j = 0
 
-        curr = 0
-        while i<m and j<n :
-            if nums1[i + n] <= nums2[j]:
-                nums1[curr] = nums1[i+n]
-                i+=1
-            else:
+        i = m - 1
+        j = n - 1
+
+        curr = m + n - 1
+        while i>=0 and j>=0 :
+            if nums1[i] <= nums2[j]:
                 nums1[curr] = nums2[j]
-                j+=1
-            curr+=1
+                j-=1
+            else:
+                nums1[curr] = nums1[i]
+                i-=1
+            curr-=1
         
-        while j<n:
+        while j>=0:
             nums1[curr] = nums2[j]
-            j+=1
-            curr+=1
+            j-=1
+            curr-=1
         
-        while i<m:
-            nums1[curr] = nums1[i+n]
-            i+=1
-            curr+=1
+        while i>=0:
+            nums1[curr] = nums1[i]
+            i-=1
+            curr-=1
