@@ -1,6 +1,10 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        s_count = Counter(s)
-        t_count = Counter(t)
+        d_s = defaultdict(int)
+        for c in s :
+            d_s[c]+=1
+        for c in t :
+            d_s[c]-=1
 
-        return s_count == t_count
+        return set(d_s.values()) == {0}
+        
